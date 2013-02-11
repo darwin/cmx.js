@@ -1,68 +1,65 @@
 require.config
   paths:
     'jquery': 'vendor/jquery'
-    'd3': '../components/d3/d3'
+    'd3': 'vendor/d3/d3'
     'svginnerhtml': 'vendor/svginnerhtml'
-    'backbone': '../components/backbone/backbone'
-    'underscore': '../components/underscore-amd/underscore'
-    'underscore.string': '../components/underscore.string/lib/underscore.string'
+    'underscore': 'vendor/underscore-amd/underscore'
+    'underscore.string': 'vendor/underscore.string/lib/underscore.string'
     'cmx': '../app/lib/cmx'
+    'd3ext': 'd3ext'
 
 require [
   'jquery',
   'd3',
+  'd3ext',
   'underscore',
   'underscore.string',
   'svginnerhtml',
   'cmx'
-], (_jq, _d3, underscore, underscore_string, _svginnerhtml, cmx) ->
-  console.log "cmx loaded"
-  $("body").trigger("cmx:loaded", cmx)
+], (_jq, _d3, d3ext, underscore, underscoreString, _svginnerhtml, cmx) ->
 
-  # underscore.string could be loaded before underscore, force mixing here
-  underscore.string = underscore.str = underscore_string
+  publishEvent = (name) ->
+    console.log "#{name}"
+    $("body").trigger(name, cmx)
+    parent?.messageFromCMX?(name, cmx)
 
-  # extend d3 with convenience functions
-  d3.selection.prototype.parents = (selector) ->
-    res = []
-    p = this.node()
-    while p = p.parentNode
-      try
-        klass = d3.select(p).attr("class")
-      catch e
+  loadWebFonts = (continuation) ->
+    window.WebFontConfig =
+      custom:
+        families: ["xkcd"]
+      active: ->
+        continuation?()
 
-      continue unless klass
-      items = klass.split(" ")
-      res.push p if selector in items
-
-    res
+    wf = document.createElement("script")
+    wf.src = "scripts/vendor/webfont.js"
+    wf.type = "text/javascript"
+    wf.async = "true"
+    s = document.getElementsByTagName("script")[0]
+    s.parentNode.insertBefore wf, s
 
   launch = ->
-    window.cmx = cmx # TODO: conditionally leak cmx into global scope
-    console.log "cmx launched"
-    $("body").trigger("cmx:launched", cmx)
-    parser = new cmx.Parser(cmx)
-    scenes = parser.parseDoc($("body"))
+    cmx.previousCmx = window.cmx
+    window.cmx = cmx
 
-    for sceneModel in scenes
+    publishEvent("cmx:launched")
+    parser = new cmx.Parser(cmx)
+    sceneModels = parser.parseDoc($("body"))
+
+    for sceneModel in sceneModels
       $scene = $(sceneModel.source)
       console.log "model for ##{$scene.attr("id")}:", @
       sceneModel.debugReport(2)
       sceneModel.materialize $scene
 
-    console.log "cmx ready", cmx
-    $("body").trigger("cmx:ready", cmx)
-    parent?.messageFromCMX?("cmx:ready", cmx)
+    publishEvent("cmx:ready")
 
-  window.WebFontConfig =
-    custom:
-      families: ["xkcd"]
-    active: ->
-      launch()
+  publishEvent("cmx:loaded")
 
-  wf = document.createElement("script")
-  wf.src = "scripts/vendor/webfont.js"
-  wf.type = "text/javascript"
-  wf.async = "true"
-  s = document.getElementsByTagName("script")[0]
-  s.parentNode.insertBefore wf, s
+  # underscore.string could be loaded before underscore, force mixing here
+  underscore.string = underscore.str = underscoreString
+
+  # extend d3 with convenience functions
+  d3ext()
+
+  # note: without fonts being fully loaded we would get wrong metrics for label frames
+  loadWebFonts(launch)

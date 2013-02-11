@@ -155,7 +155,7 @@ getGistUrl = (id) ->
 window.messageFromCMX = (event, cmx) ->
   switch event
     when 'cmx:ready'
-      window.innerCmx = cmx
+      window.cmxref = cmx
       cmx.makeEditable()
 
 $ ->
