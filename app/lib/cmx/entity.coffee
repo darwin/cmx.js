@@ -10,7 +10,15 @@ define ['cmx/drawable', 'cmx/gizmos/entity_gizmo', 'cmx/skelet'], (Drawable, Ent
     setFrame: (@t) ->
 
     getFrame: ->
-      _.str.trim(@t.replace("translate(0,0)", "").replace("rotate(0)", "").replace("skewX(0)","").replace("scale(1,1)", "").replace(")",") "))
+      # strip defaults and make the transformation human-readable
+      re = /\)([^ ])/
+      _.str.trim(
+        @t.replace("translate(0,0)", "")
+          .replace("rotate(0)", "")
+          .replace("skewX(0)","")
+          .replace("scale(1,1)", "")
+          .replace(re, ") $1")
+      )
 
     getEffectiveFrame: ->
       frame = []
