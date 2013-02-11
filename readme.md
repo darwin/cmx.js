@@ -1,10 +1,10 @@
-# cmx.js - a library for authoring xkcd-style comixes
+# cmx.js - a library for authoring [xkcd-style](http://xkcd.com) comixes
 
-Please visit <a href="http://cmx.io">cmx.io</a> for a live example.
+### Please visit [cmx.io](http://cmx.io) for a live example.
 
 <a href="http://cmx.io"><img src="http://cmx.io/img/cmx-preview.png" width="800px"/></a>
 
-Note: Source for this comix strip is in <a href="app/sample.html">app/sample.html</a>.
+Note: Source for this comix strip is in [app/sample.html](app/sample.html).
 
 ### Read more about the markup [on the wiki](https://github.com/darwin/cmx.js/wiki)
 
@@ -34,5 +34,4 @@ Note: Source for this comix strip is in <a href="app/sample.html">app/sample.htm
 * [Mike Bostock](http://bost.ocks.org) - [d3.js](http://d3js.org)
 * and many others making the web awesome
 
-## Licence: [MIT](license.txt)
-
+## License: [MIT](license.txt)
