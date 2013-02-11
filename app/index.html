@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Comix Editor</title>
+    <link rel="stylesheet" href="styles/editor.css" type="text/css"/>
+    <link rel="shortcut icon" href="editor.ico" type="image/x-icon"/>
+    <!-- build:js scripts/editor.js -->
+    <script src="scripts/vendor/modernizr.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/vendor/detectizr.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="components/underscore-amd/underscore.js" type="text/javascript" charset="utf-8"></script>
+    <script src="components/htmlparser/lib/htmlparser.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/editor.js" type="text/javascript" charset="utf-8"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+    <div class="unsupported" style="display:none">
+      <h2>STOP! WebKit is required here,</h2>
+      <p>The Comix Editor was tested under Chrome. It uses some webkit-specific tricks.</p>
+      <p>Currently it is broken on Firefox, Opera and I don't belive it could ever run on IE.</p>
+      <p>Please, run it in the latest <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.apple.com/safari/">Safari</a>.</p>
+      <p class="note">Interested in porting it to your favorite browser? <a href="https://github.com/darwin/cmx.js">Check out the sources</a>.</p>
+    </div>
+    <div class="supported" style="display:none">
+      <div id="stage-wrapper"></div>
+      <div id="desk" style="display:none">
+        <div id="editor"></div>
+        <div id="status">
+          <div class="target">You are editing <a id="targetFile" target="_blank" href=""></a></div>
+          <button id="apply">Apply</button>
+        </div>
+      </div>
+    </div>
+    <div class="error" style="display:none">
+      <h2>Unable to read gist <span id="error-gist-number"></span></h2>
+      <pre id="error-response"></pre>
+      <p>Please make sure that</p>
+      <ul>
+        <li>the gist <a id="error-gist-link" href=""></a> really exists</li>
+        <li>the gist contains <a id="error-gist-index-link">index.html</a> file with comix source code</li>
+        <li>your browser is not over <a href="http://developer.github.com/v3/#rate-limiting">GitHub API limit quota</a></li>
+      </ul>
+      <p>Here is an example of a working gist <a href="http://cmx.io/edit/#74e3dc0e166daf1ec668">http://cmx.io/edit/#74e3dc0e166daf1ec668</a> which reads <a href="https://gist.github.com/74e3dc0e166daf1ec668">https://gist.github.com/74e3dc0e166daf1ec668</a>.</p>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-38409764-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

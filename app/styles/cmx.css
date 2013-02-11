@@ -1,0 +1,71 @@
+body {
+  background: transparent;
+}
+
+scene {
+  display: none;
+}
+
+@font-face {
+  font-family: 'xkcd';
+  font-style: normal;
+  font-weight: normal;
+  src: local('xkcd'),url('/fonts/humor-sans.ttf');
+}
+
+.cmx-scene {
+  float: left;
+  font-family: "xkcd", sans-serif;
+  font-size: 14px;
+  background-color: white;
+  margin: 0px;
+  position: relative;
+
+  -moz-transition: all 0.6s ease-out;
+  -o-transition: all 0.6s ease-out;
+  -webkit-transition: all 0.6s ease-out;
+  -ms-transition: all 0.6s ease-out;
+  transition: all 0.6s ease-out;
+}
+
+.cmx-scene svg {
+  display: block;
+}
+
+.cmx-path {
+  fill: none;
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cmx-back {
+  stroke: white;
+}
+
+.cmx-back .cmx-text * {
+  stroke-width: 10px;
+  stroke: white !important;
+}
+
+.cmx-back .cmx-path {
+  stroke-width: 6px;
+}
+
+.cmx-front {
+  stroke: black;
+}
+
+.cmx-front .cmx-path {
+  stroke-width: 3px;
+}
+
+.cmx-front .cmx-text {
+  stroke-width: 0px;
+}
+
+.cmx-text-border .cmx-path {
+  stroke: black;
+  fill: white;
+  stroke-width: 2px;
+}

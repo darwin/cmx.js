@@ -1,0 +1,146 @@
+.cmx-overlay {
+  pointer-events:none;
+  position: absolute;
+}
+
+.cmx-active-selection .cmx-scene {
+  pointer-events:none;
+}
+
+.cmx-overlay .cmx-selected {
+  pointer-events:auto;
+}
+
+.cmx-scene {
+  border: 1px dashed transparent;
+}
+
+.cmx-something-is-being-dragged.cmx-scene {
+  border: 1px dashed #aaa;
+}
+
+.cmx-active-selection .cmx-scene {
+  opacity: 0.2;
+}
+
+.cmx-active-selection .cmx-scene.cmx-has-selected-gizmo {
+  pointer-events:auto;
+  opacity: 1;
+}
+
+.cmx-editable * {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.cmx-editable .cmx-layers .cmx-entity {
+  cursor: pointer;
+}
+
+.cmx-force-move-cursor * {
+  cursor: move !important;
+}
+
+.cmx-gizmo .cmx-control {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.cmx-gizmo.cmx-selected .cmx-control {
+  visibility: visible;
+  opacity: 0.8;
+}
+
+.cmx-gizmo.cmx-selected .cmx-control:hover {
+  opacity: 1;
+}
+
+.cmx-gizmo.cmx-force-unselected .cmx-control {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.cmx-something-is-being-dragged .cmx-control {
+  opacity: 0.05 !important;
+}
+
+.cmx-something-is-being-dragged .cmx-control.cmx-highlighted-bone {
+  opacity: 0.5 !important;
+  fill: yellow !important;
+}
+
+.cmx-control {
+  cursor: move;
+  -moz-transition: all 0.6s ease-out;
+  -o-transition: all 0.6s ease-out;
+  -webkit-transition: all 0.6s ease-out;
+  -ms-transition: all 0.6s ease-out;
+  transition: all 0.6s ease-out;
+}
+
+.cmx-control.cmx-p {
+  fill: blue;
+}
+
+.cmx-control.cmx-c {
+  fill: aqua;
+}
+
+.cmx-control.cmx-n {
+  fill: orange;
+}
+
+.cmx-control.cmx-l {
+  fill: red;
+}
+
+.cmx-control.cmx-t {
+  fill: green;
+}
+
+.cmx-control.cmx-h {
+  fill: purple;
+}
+
+.cmx-marker * {
+  stroke-width: 2px;
+  stroke: purple;
+}
+
+.cmx-marker.cmx-rot path {
+  fill: none;
+  marker-start: url(#cmx-start-marker-arrow);
+  marker-end: url(#cmx-end-marker-arrow);
+}
+
+.cmx-marker.cmx-sx line {
+  marker-end: url(#cmx-end-marker-arrow)
+}
+
+.cmx-marker.cmx-sy line {
+  marker-end: url(#cmx-end-marker-arrow)
+}
+
+.cmx-marker.cmx-sq line {
+  fill: none;
+  marker-start: url(#cmx-start-marker-arrow);
+  marker-end: url(#cmx-end-marker-arrow);
+}
+
+.cmx-marker-arrow {
+  fill: purple;
+  stroke: purple;
+}
+
+.cmx-marker.cmx-sx,
+.cmx-marker.cmx-sy,
+.cmx-marker.cmx-sq {
+  display: none; /* enable this for complex transform gizmos */
+}
+
+.cmx-marker rect {
+  opacity: 0;
+}

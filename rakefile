@@ -1,0 +1,95 @@
+require 'rake'
+
+################################################################################################
+# constants
+
+ROOT_DIR = File.expand_path('.')
+CMXIO_DIR = File.join(ROOT_DIR, '..', 'cmx.io')
+CMXIO_EDIT_DIR = File.join(CMXIO_DIR, 'edit')
+CMXIO_V_DIR = File.join(CMXIO_DIR, 'v')
+
+################################################################################################
+# dependencies
+
+begin
+  require 'colored'
+rescue LoadError
+  raise 'You must "gem install colored" to use terminal colors'
+end
+
+################################################################################################
+# helpers
+
+def die(msg, status=1)
+  puts "Error[#{status||$?}]: #{msg}".red
+  exit status||$?
+end
+
+def sys(cmd)
+  puts "> #{cmd}".yellow
+  system(cmd)
+end
+
+def patch(path, replacers)
+  puts "Patching #{path.blue}"
+  lines = []
+  File.open(path, "r") do |f|
+  f.each do |line|
+    replacers.each do |r|
+    line.gsub!(r[0], r[1])
+    end
+    lines << line
+  end
+  end
+  File.open(path, "w") do |f|
+    f << lines.join
+  end
+end
+
+################################################################################################
+# tasks
+
+desc "start dev server"
+task :dev do
+  sys("yeoman server")
+end
+
+desc "build version"
+task :build do
+  sys("yeoman intro clean coffee compass mkdirs usemin-handler rjs concat css img usemin manifest copy time -d")
+
+  version = ENV["v"] || "0.1"
+
+  VERSION_DIR = File.join(CMXIO_V_DIR, version)
+
+  sys("rm -rf \"#{VERSION_DIR}\"/*")
+  sys("mkdir -p \"#{VERSION_DIR}\"")
+  Dir.chdir "dist" do
+    sys("cp -r cdn/* \"#{VERSION_DIR}\"")
+  end
+
+  sys("rm -rf \"#{CMXIO_EDIT_DIR}\"/*")
+  sys("mkdir -p \"#{CMXIO_EDIT_DIR}\"")
+  Dir.chdir "dist" do
+    sys("cp -r fonts \"#{CMXIO_DIR}\"")
+
+    sys("cp index.html \"#{CMXIO_EDIT_DIR}\"")
+
+    sys("cp sample.html \"#{CMXIO_EDIT_DIR}\"")
+    patch(File.join(CMXIO_EDIT_DIR, "sample.html"), [["cdn/cmx", "http://cmx.io/v/#{version}/cmx"]])
+
+    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts/vendor\"")
+    sys("cp scripts/editor.js \"#{CMXIO_EDIT_DIR}/scripts\"")
+    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/styles\"")
+    sys("cp styles/editor.css \"#{CMXIO_EDIT_DIR}/styles\"")
+    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
+    sys("cp scripts/vendor/webfont.js \"#{CMXIO_EDIT_DIR}/scripts/vendor\"")
+    sys("cp scripts/ace/theme-chrome.js \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
+    sys("cp scripts/ace/mode-html.js \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
+    sys("cp editor.ico \"#{CMXIO_EDIT_DIR}\"")
+    sys("cp favicon.ico \"#{CMXIO_DIR}\"")
+  end
+
+end
+
+task :default => :dev
