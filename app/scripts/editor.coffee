@@ -158,6 +158,23 @@ window.messageFromCMX = (event, cmx) ->
       window.cmxref = cmx
       cmx.makeEditable()
 
+initializeHelp = ->
+  updateHelp = ->
+    if $.cookie('help')=="hidden"
+      $("#help").css("display", "none")
+      $("#help-icon").css("display", "block")
+    else
+      $("#help").css("display", "block")
+      $("#help-icon").css("display", "none")
+
+  updateHelp()
+  $("#help .dismiss").on "click", ->
+    $.cookie('help', 'hidden', expires: 30)
+    updateHelp()
+  $("#help-icon .open").on "click", ->
+    $.cookie('help', 'shown', expires: 30)
+    updateHelp()
+
 $ ->
   Modernizr.Detectizr.detect();
   env = Modernizr.Detectizr.device
@@ -171,6 +188,8 @@ $ ->
     $('#apply').append(" (CMD+S)")
   else
     $('#apply').append(" (CTRL+S)")
+
+  initializeHelp()
 
   console.log "editor started"
   editor = new Editor()

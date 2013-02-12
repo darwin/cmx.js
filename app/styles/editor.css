@@ -93,3 +93,29 @@ body, html {
 #error-gist-number {
   color: red;
 }
+
+#help, #help-icon {
+  position: absolute;
+  padding: 0px 20px;
+  top: 0px;
+  right: 20px;
+  font-size: 12px;
+  background-color: rgba(230,230,100,0.9);
+}
+
+#help .dismiss {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#help-icon .open {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+

@@ -11,6 +11,7 @@
     <script src="scripts/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/vendor/underscore-amd/underscore.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/vendor/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/editor.js" type="text/javascript" charset="utf-8"></script>
     <!-- endbuild -->
   </head>
@@ -30,6 +31,42 @@
           <div class="target">You are editing <a id="targetFile" target="_blank" href=""></a></div>
           <button id="apply">Apply</button>
         </div>
+      </div>
+      <div id="help" style="display:none">
+        <div class="dismiss" title="dismiss help">X</div>
+        <h2>A quick help...</h2>
+        <h3>Visual Editor (top)</h3>
+        <ul>
+          <li>Click individual objects to manipulate them</li>
+          <li>Selected object displays control points:</li>
+          <li>- purple = position/rotation</li>
+          <li>- green = text base line</li>
+          <li>- blue = positional bones</li>
+          <li>- red = joints</li>
+          <li>- orange = special</li>
+          <li>Double-click control point to reset it</li>
+        </ul>
+        <h3>Source Editor (bottom)</h3>
+        <ul>
+          <li>Modify scene structure via the code</li>
+          <li>You can nest tags the same way as in HTML</li>
+          <li>You can apply own CSS - use web inspector</li>
+          <li>You can wrap/mix scenes with arbitrary HTML</li>
+          <li>Hit CMD+S (CTRL+S) to apply changes</li>
+        </ul>
+        <h3>Gist support</h3>
+        <p>
+          I recommend you to keep sources in <a href="http://gist.github.com">gist.github.com</a>.<br>
+          <br>
+          1. Create a new gist with index.html (<a target="_blank" href="https://gist.github.com/4770953">sample #4770953</a>).<br>
+          2. Reference it in via hash <a target="_blank" href="http://cmx.io/edit/#4770953">http://cmx.io/edit/#4770953</a><br>
+          3. Publish the gist via <a target="_blank" href="http://cmx.io/#4770953">http://cmx.io/#4770953</a><br>
+          <br>
+          <span style="color: #cc0000">Note: I can't write your changes back to gist,<br>you have to copy&paste final work to gist yourself!</span>
+        </p>
+      </div>
+      <div id="help-icon">
+        <div class="open" title="open help">?</div>
       </div>
     </div>
     <div class="error" style="display:none">
