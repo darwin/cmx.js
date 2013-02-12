@@ -201,9 +201,13 @@ class Editor
 $ ->
   Modernizr.Detectizr.detect();
   env = Modernizr.Detectizr.device
-  if env.browserEngine == "webkit"
+  if env.browserEngine == "webkit" or $.cookie("letmein")
     $(".supported").css("display", "block")
   else
+    $("#pass-button").on "click", ->
+      $.cookie("letmein", "now!", expires:30)
+      window.location.reload()
+
     $(".unsupported").css("display", "block")
     return
 

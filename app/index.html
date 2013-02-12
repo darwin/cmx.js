@@ -16,13 +16,6 @@
     <!-- endbuild -->
   </head>
   <body>
-    <div class="unsupported" style="display:none">
-      <h2>STOP! WebKit is required here,</h2>
-      <p>The Comix Editor was tested under Chrome. It uses some webkit-specific tricks.</p>
-      <p>Currently it is broken on Firefox, Opera and I don't belive it could ever run on IE.</p>
-      <p>Please, run it in the latest <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.apple.com/safari/">Safari</a>.</p>
-      <p class="note">Interested in porting it to your favorite browser? <a href="https://github.com/darwin/cmx.js">Check out the sources</a>.</p>
-    </div>
     <div class="supported" style="display:none">
       <div id="stage-wrapper"></div>
       <div id="desk" style="display:none">
@@ -83,6 +76,14 @@
         <li>your browser is not over <a href="http://developer.github.com/v3/#rate-limiting">GitHub API limit quota</a></li>
       </ul>
       <p>Here is an example of a working gist <a href="http://cmx.io/edit/#74e3dc0e166daf1ec668">http://cmx.io/edit/#74e3dc0e166daf1ec668</a> which reads <a href="https://gist.github.com/74e3dc0e166daf1ec668">https://gist.github.com/74e3dc0e166daf1ec668</a>.</p>
+    </div>
+    <div class="unsupported" style="display:none">
+      <h2>Wait! WebKit is required here</h2>
+      <p>The Comix Editor was tested under Chrome. It uses some webkit-specific tricks.</p>
+      <p>It is a prototype. Currently it is broken under Firefox, Opera and IE.</p>
+      <p>Please, run it in the latest <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.apple.com/safari/">Safari</a>.</p>
+      <button id="pass-button">I don't want to switch. I want to see how much broken it is. Please let me in!</button>
+      <p class="note">Interested in porting it to your favorite browser? <a href="https://github.com/darwin/cmx.js">Check out the sources</a>.</p>
     </div>
 
     <script type="text/javascript">

@@ -83,7 +83,6 @@ task :build do
     sys("mkdir -p \"#{CMXIO_EDIT_DIR}/styles\"")
     sys("cp styles/editor.css \"#{CMXIO_EDIT_DIR}/styles\"")
     sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
-    sys("cp scripts/vendor/webfont.js \"#{CMXIO_EDIT_DIR}/scripts/vendor\"")
     sys("cp scripts/ace/theme-chrome.js \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
     sys("cp scripts/ace/mode-html.js \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
     sys("cp editor.ico \"#{CMXIO_EDIT_DIR}\"")
