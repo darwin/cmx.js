@@ -97,7 +97,7 @@ body, html {
 #help, #help-icon {
   position: absolute;
   padding: 0px 20px;
-  top: 0px;
+  top: 26px;
   right: 20px;
   font-size: 12px;
   background-color: rgba(230,230,100,0.9);
@@ -117,5 +117,17 @@ body, html {
   top: 10px;
   cursor: pointer;
   font-weight: bold;
+}
+
+#controls {
+  position: absolute;
+  padding: 0px 20px;
+  top: 2px;
+  right: 0px;
+  font-size: 14px;
+}
+
+.control-button {
+  width: 60px;
 }
 

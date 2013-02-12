@@ -1,3 +1,61 @@
+# http://stackoverflow.com/a/901144/84283
+getParameterByName = (name) ->
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
+  regexS = "[\\?&]" + name + "=([^&#]*)"
+  regex = new RegExp(regexS)
+  results = regex.exec(window.location.search)
+  unless results?
+    ""
+  else
+    decodeURIComponent results[1].replace(/\+/g, " ")
+
+getGistUrl = (id) ->
+  "https://api.github.com/gists/#{id}"
+
+initializeHelp = ->
+  updateHelp = ->
+    if $.cookie('help')=="hidden"
+      $("#help").css("display", "none")
+      $("#help-icon").css("display", "block")
+    else
+      $("#help").css("display", "block")
+      $("#help-icon").css("display", "none")
+
+  updateHelp()
+  $("#help .dismiss").on "click", ->
+    $.cookie('help', 'hidden', expires: 30)
+    updateHelp()
+  $("#help-icon .open").on "click", ->
+    $.cookie('help', 'shown', expires: 30)
+    updateHelp()
+
+updateControls = ->
+  if cmxref?.undoStack.length>0
+    $("#undo-button").attr("disabled", null)
+  else
+    $("#undo-button").attr("disabled", "disabled")
+
+  if cmxref?.redoStack.length>0
+    $("#redo-button").attr("disabled", null)
+  else
+    $("#redo-button").attr("disabled", "disabled")
+
+initializeUndoRedo = ->
+  $("#undo-button").on "click", ->
+    cmxref?.undo()
+    updateControls()
+
+  $("#redo-button").on "click", ->
+    cmxref?.redo()
+    updateControls()
+
+window.messageFromCMX = (event, cmx) ->
+  switch event
+    when 'cmx:ready'
+      window.cmxref = cmx
+      cmx.makeEditable()
+      updateControls()
+
 class Editor
 
   constructor: () ->
@@ -109,6 +167,7 @@ class Editor
       , 200
 
       set.on 'cmx:updated', throttle ->
+        updateControls()
         invocations++
         return if invocations==1
         console.log "update code"
@@ -127,6 +186,7 @@ class Editor
         patched = content.replace /<scene(.|[\r\n])+?\/scene>/mg, -> chunks.shift()
 
         editor.setContent patched
+
       return true
 
     interval = setInterval ->
@@ -137,43 +197,6 @@ class Editor
       old.fadeOut 300, ->
         $(@).remove()
     , 200
-
-# http://stackoverflow.com/a/901144/84283
-getParameterByName = (name) ->
-  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
-  regexS = "[\\?&]" + name + "=([^&#]*)"
-  regex = new RegExp(regexS)
-  results = regex.exec(window.location.search)
-  unless results?
-    ""
-  else
-    decodeURIComponent results[1].replace(/\+/g, " ")
-
-getGistUrl = (id) ->
-  "https://api.github.com/gists/#{id}"
-
-window.messageFromCMX = (event, cmx) ->
-  switch event
-    when 'cmx:ready'
-      window.cmxref = cmx
-      cmx.makeEditable()
-
-initializeHelp = ->
-  updateHelp = ->
-    if $.cookie('help')=="hidden"
-      $("#help").css("display", "none")
-      $("#help-icon").css("display", "block")
-    else
-      $("#help").css("display", "block")
-      $("#help-icon").css("display", "none")
-
-  updateHelp()
-  $("#help .dismiss").on "click", ->
-    $.cookie('help', 'hidden', expires: 30)
-    updateHelp()
-  $("#help-icon .open").on "click", ->
-    $.cookie('help', 'shown', expires: 30)
-    updateHelp()
 
 $ ->
   Modernizr.Detectizr.detect();
@@ -190,6 +213,8 @@ $ ->
     $('#apply').append(" (CTRL+S)")
 
   initializeHelp()
+  initializeUndoRedo()
+  updateControls()
 
   console.log "editor started"
   editor = new Editor()
