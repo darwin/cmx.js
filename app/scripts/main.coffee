@@ -31,7 +31,7 @@ require [
         continuation?()
 
     wf = document.createElement("script")
-    wf.src = "scripts/vendor/webfont.js"
+    wf.src = "//ajax.googleapis.com/ajax/libs/webfont/1.1.2/webfont.js"
     wf.type = "text/javascript"
     wf.async = "true"
     s = document.getElementsByTagName("script")[0]
