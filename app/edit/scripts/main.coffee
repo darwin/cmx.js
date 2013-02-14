@@ -5,7 +5,7 @@ require.config
     'svginnerhtml': 'vendor/svginnerhtml'
     'underscore': 'vendor/underscore-amd/underscore'
     'underscore.string': 'vendor/underscore.string/lib/underscore.string'
-    'cmx': '../app/lib/cmx'
+    'cmx': '../../app/lib/cmx'
     'd3ext': 'd3ext'
 
 require [

@@ -3,6 +3,9 @@ require 'rake'
 ################################################################################################
 # constants
 
+NEXT_VERSION = "0.1"
+STABLE_VERSION = "0.1"
+
 ROOT_DIR = File.expand_path('.')
 CMXIO_DIR = File.join(ROOT_DIR, '..', 'cmx.io')
 CMXIO_EDIT_DIR = File.join(CMXIO_DIR, 'edit')
@@ -54,39 +57,61 @@ task :dev do
   sys("yeoman server")
 end
 
+desc "hack for build in progress - I was unable to teach Yeoman new tricks"
+task :buildhack do
+  sys("touch x.txt")
+  sys("cp temp/edit/scripts/* temp/scripts")
+  sys("cp temp/edit/styles/* temp/styles")
+end
+
 desc "build version"
 task :build do
-  sys("yeoman intro clean coffee compass mkdirs usemin-handler rjs concat css img usemin manifest copy time -d")
+  die("build failed") if not sys("yeoman custom-build -d")
 
-  version = ENV["v"] || "0.1"
+  version = ENV["v"] || NEXT_VERSION
 
   VERSION_DIR = File.join(CMXIO_V_DIR, version)
 
   sys("rm -rf \"#{VERSION_DIR}\"/*")
   sys("mkdir -p \"#{VERSION_DIR}\"")
   Dir.chdir "dist" do
-    sys("cp -r cdn/* \"#{VERSION_DIR}\"")
+    sys("cp -r v/* \"#{VERSION_DIR}\"")
   end
 
   sys("rm -rf \"#{CMXIO_EDIT_DIR}\"/*")
   sys("mkdir -p \"#{CMXIO_EDIT_DIR}\"")
   Dir.chdir "dist" do
+    # cherry-pick homepage files
+    sys("rm -rf \"#{CMXIO_DIR}\"/fonts")
     sys("cp -r fonts \"#{CMXIO_DIR}\"")
-
-    sys("cp index.html \"#{CMXIO_EDIT_DIR}\"")
-
-    sys("cp sample.html \"#{CMXIO_EDIT_DIR}\"")
-    patch(File.join(CMXIO_EDIT_DIR, "sample.html"), [["cdn/cmx", "http://cmx.io/v/#{version}/cmx"]])
-
-    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts/vendor\"")
-    sys("cp scripts/editor.js \"#{CMXIO_EDIT_DIR}/scripts\"")
-    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/styles\"")
-    sys("cp styles/editor.css \"#{CMXIO_EDIT_DIR}/styles\"")
-    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
-    sys("cp scripts/ace/theme-chrome.js \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
-    sys("cp scripts/ace/mode-html.js \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
-    sys("cp editor.ico \"#{CMXIO_EDIT_DIR}\"")
+    sys("rm -rf \"#{CMXIO_DIR}\"/img")
+    sys("cp -r img \"#{CMXIO_DIR}\"")
+    sys("rm -rf \"#{CMXIO_DIR}\"/styles")
+    sys("mkdir -p \"#{CMXIO_DIR}/styles\"")
+    sys("cp -r styles/site.css \"#{CMXIO_DIR}\"/styles")
+    sys("rm -rf \"#{CMXIO_DIR}\"/scripts")
+    sys("mkdir -p \"#{CMXIO_DIR}/scripts/vendor\"")
+    sys("cp -r scripts/site.js \"#{CMXIO_DIR}\"/scripts")
+    sys("cp scripts/vendor/jquery.js \"#{CMXIO_DIR}\"/scripts/vendor")
+    sys("cp scripts/vendor/modernizr.js \"#{CMXIO_DIR}\"/scripts/vendor")
     sys("cp favicon.ico \"#{CMXIO_DIR}\"")
+    sys("cp index.html \"#{CMXIO_DIR}\"")
+    sys("cp 404.html \"#{CMXIO_DIR}\"")
+
+    # cherry-pick editor files
+    sys("cp edit/index.html \"#{CMXIO_EDIT_DIR}\"")
+    sys("cp edit/sample.html \"#{CMXIO_EDIT_DIR}\"")
+
+    patch(File.join(CMXIO_EDIT_DIR, "sample.html"), [["v/cmx", "http://cmx.io/v/#{STABLE_VERSION}/cmx"]])
+
+    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts\"")
+    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/styles\"")
+    sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
+    sys("cp scripts/editor.js \"#{CMXIO_EDIT_DIR}/scripts\"")
+    sys("cp styles/editor.css \"#{CMXIO_EDIT_DIR}/styles\"")
+    sys("cp edit/scripts/ace/theme-chrome.js \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
+    sys("cp edit/scripts/ace/mode-html.js \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
+    sys("cp edit/editor.ico \"#{CMXIO_EDIT_DIR}\"")
   end
 
 end

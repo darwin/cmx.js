@@ -20,7 +20,8 @@ module.exports = function( grunt ) {
       compile: {
         files: {
           'temp/scripts/*.js': 'app/scripts/**/*.coffee',
-          'temp/app/lib/*.js': 'app/lib/**/*.coffee'
+          'temp/app/lib/*.js': 'app/lib/**/*.coffee',
+          'temp/edit/scripts/*.js': 'app/edit/scripts/**/*.coffee'
         },
         options: {
           basePath: ['app/scripts', 'lib']
@@ -35,7 +36,7 @@ module.exports = function( grunt ) {
         options: {
           css_dir: 'temp/styles',
           sass_dir: 'app/styles',
-          images_dir: 'app/images',
+          images_dir: 'app/img',
           javascripts_dir: 'temp/scripts',
           force: true
         }
@@ -57,13 +58,15 @@ module.exports = function( grunt ) {
       coffee: {
         files: [
           'app/scripts/**/*.coffee',
+          'app/edit/scripts/**/*.coffee',
           'app/lib/**/*.coffee',
         ],
         tasks: 'coffee reload'
       },
       compass: {
         files: [
-          'app/styles/**/*.{scss,sass}'
+          'app/styles/**/*.{scss,sass}',
+          'app/edit/styles/**/*.{scss,sass}'
         ],
         tasks: 'compass reload'
       },
@@ -72,7 +75,11 @@ module.exports = function( grunt ) {
           'app/*.html',
           'app/styles/**/*.css',
           'app/scripts/**/*.js',
-          'app/images/**/*'
+          'app/img/**/*',
+          'app/edit/*.html',
+          'app/edit/styles/**/*.css',
+          'app/edit/scripts/**/*.js',
+          'app/edit/img/**/*'
         ],
         tasks: 'reload'
       }
@@ -128,7 +135,9 @@ module.exports = function( grunt ) {
 
     // concat css/**/*.css files, inline @import, output a single minified css
     css: {
-      'styles/main.css': ['styles/**/*.css']
+      // 'styles/site.css': ['styles/bootstrap.css', 'styles/site.css'],
+      // 'edit/styles/cmx.css': ['edit/styles/cmx.css', 'edit/styles/cmx-overlay.css'],
+      // 'edit/styles/editor.css': ['edit/styles/editor.css']
     },
 
     // renames JS/CSS to prepend a hash of their contents for easier
@@ -136,18 +145,18 @@ module.exports = function( grunt ) {
     rev: {
       js: 'scripts/**/*.js',
       css: 'styles/**/*.css',
-      img: 'images/**'
+      img: 'img/**'
     },
 
     // usemin handler should point to the file containing
     // the usemin blocks to be parsed
     'usemin-handler': {
-      html: ['sample.html', 'index.html']
+      html: ['edit/sample.html', 'edit/index.html', 'index.html']
     },
 
     // update references in HTML/CSS to revved files
     usemin: {
-      html: ['*.html'],
+      html: ['*.html', 'edit/*.html'],
       css: ['**/*.css']
     },
 
@@ -171,8 +180,8 @@ module.exports = function( grunt ) {
     rjs: {
       // no minification, is done by the min task
       optimize: 'none',
-      baseUrl: './scripts',
-      mainFile: 'sample.html',
+      baseUrl: './edit/scripts',
+      mainFile: 'edit/sample.html',
       wrap: true,
       name: 'main'
     },
@@ -191,16 +200,19 @@ module.exports = function( grunt ) {
   // Alias the `test` task to run the `mocha` task instead
   grunt.registerTask('test', 'server:phantom mocha');
 
-  grunt.registerTask('build2', 'my build', function(target) {
-    var tasks1 = 'intro clean coffee compass mkdirs';
-    var tasks2 = 'usemin-handler rjs concat css img usemin manifest copy time';
-
-    grunt.log.subhead('Running build2')
-
+  // Yeoman's usemin task expects our html files to be resident in app's root only
+  // I was unable to use relative paths in build blocks in app/edit/*.html files
+  grunt.registerTask('custom-hack', 'my fix', function(target) {
+    grunt.log.subhead('Running custom-fix');
     var execSync = require('exec-sync');
-    grunt.task.run(tasks1);
-    // execSync('rm temp/lib');
-    // execSync('cp -r lib temp');
-    grunt.task.run(tasks2);
+    execSync('cp -r edit/scripts/* scripts');
+    execSync('cp -r edit/styles/* styles');
   });
+
+  grunt.registerTask('custom-build', 'my build', function(target) {
+    var tasks = 'intro clean coffee compass mkdirs usemin-handler rjs custom-hack concat css img usemin manifest copy time';
+    grunt.log.subhead('Running custom-build')
+    grunt.task.run(tasks);
+  });
+
 };

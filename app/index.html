@@ -1,72 +1,98 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
-    <title>Comix Editor</title>
-    <link rel="stylesheet" href="styles/editor.css" type="text/css"/>
-    <link rel="shortcut icon" href="editor.ico" type="image/x-icon"/>
-    <!-- build:js scripts/editor.js -->
-    <script src="scripts/vendor/modernizr.js" type="text/javascript" charset="utf-8"></script>
-    <script src="scripts/vendor/detectizr.js" type="text/javascript" charset="utf-8"></script>
-    <script src="scripts/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script src="scripts/vendor/underscore-amd/underscore.js" type="text/javascript" charset="utf-8"></script>
-    <script src="scripts/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
-    <script src="scripts/vendor/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
-    <script src="scripts/editor.js" type="text/javascript" charset="utf-8"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Comix I/O</title>
+    <link rel="canonical" href="http://cmx.io"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <meta property="fb:admins" content="antonin.hildebrand"/>
+    <meta property="og:description" content="Create your own XKCD-style comics using HTML markup. A browser-based visual editor included!"/>
+    <meta property="og:site_name" content="CMX.IO"/>
+    <meta property="og:type" content="product"/>
+    <meta property="og:title" content="Comix I/O"/>
+    <meta property="og:url" content="http://cmx.io"/>
+    <meta property="og:image" content="http://cmx.io/img/cmx-teaser.png"/>
+
+    <!-- build:css styles/site.css -->
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/site.css">
     <!-- endbuild -->
   </head>
   <body>
-    <div class="supported" style="display:none">
-      <div id="stage-wrapper"></div>
-      <div id="desk" style="display:none">
-        <div id="editor"></div>
-        <div id="status">
-          <div class="target">You are editing <a id="targetFile" target="_blank" href=""></a></div>
-          <button id="apply">Apply</button>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="homepage" style="display:none">
+      <header class="hero-unit">
+        <div class="container">
+          <h1>Comix I/O</h1>
+          <p>Create your own <a href="http://xkcd.com">xkcd-style</a> comics using HTML markup.</p>
+          <div class="social-buttons-placeholder">
+            <ul class="bs-docs-social-buttons" style="display:none">
+              <li>
+                <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcmx.io&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=332451499524" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+              </li>
+              <li>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cmx.io" data-text="Comix I/O: Create your own XKCD-style comics using HTML markup. A visual editor included!" data-hashtags="cmx.io">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>              </li>
+              <li>
+                <div class="g-plusone" data-size="medium"></div>
+                <script type="text/javascript">
+                  (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>
+              </li>
+              <li>
+                <iframe src="http://ghbtns.com/github-btn.html?user=darwin&repo=cmx.js&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+              </li>
+              <li>
+                <iframe src="http://ghbtns.com/github-btn.html?user=darwin&repo=cmx.js&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+              </li>
+            </ul>
+          </div>
+          <div class="splash-box">
+            <a href="/edit"><img class="splash-image" title="Open this strip in the editor" src="img/cmx-preview.png"/></a>
+            <div class="source-link">Raw source file for this comix strip is located at <a href="http://cmx.io/edit/sample.html">http://cmx.io/edit/sample.html</a>.</div>
+          </div>
+          <p class="btn-group">
+            <a class="btn btn-large btn-primary" href="/edit"><i class="icon-white icon-move"></i> Launch Editor</a>
+            <a class="btn btn-large" href="https://github.com/darwin/cmx.js/wiki"><i class="icon-github"></i> Read Docs</a>
+          </p>
         </div>
-      </div>
-      <div id="help" style="display:none">
-        <div class="dismiss" title="dismiss help">X</div>
-        <h2>A quick help...</h2>
-        <h3>Visual Editor (top)</h3>
-        <ul>
-          <li>Click individual objects to manipulate them</li>
-          <li>Selected object displays control points:</li>
-          <li>- purple = position/rotation</li>
-          <li>- green = text base line</li>
-          <li>- blue = positional bones</li>
-          <li>- red = joints</li>
-          <li>- orange = special</li>
-          <li>Double-click control point to reset it</li>
-        </ul>
-        <h3>Source Editor (bottom)</h3>
-        <ul>
-          <li>Modify scene structure via the code</li>
-          <li>You can nest tags the same way as in HTML</li>
-          <li>You can apply own CSS - use web inspector</li>
-          <li>You can wrap/mix scenes with arbitrary HTML</li>
-          <li>Hit CMD+S (CTRL+S) to apply changes</li>
-        </ul>
-        <h3>Gist support</h3>
-        <p>
-          I recommend you to keep sources in <a href="http://gist.github.com">gist.github.com</a>.<br>
-          <br>
-          1. Create a new gist with index.html (<a target="_blank" href="https://gist.github.com/4772996">sample #4772996</a>).<br>
-          2. Reference it in via hash <a target="_blank" href="http://cmx.io/edit/#4772996">http://cmx.io/edit/#4772996</a><br>
-          3. Publish the gist via <a target="_blank" href="http://cmx.io/#4772996">http://cmx.io/#4772996</a><br>
-          <br>
-          <span style="color: #cc0000">Note: I can't write your changes back to gist,<br>you have to copy&paste final work to gist yourself!</span>
-        </p>
-      </div>
-      <div id="help-icon">
-        <div class="open" title="open help">?</div>
-      </div>
-      <div id="controls">
-        <button id="undo-button" class="control-button">Undo</button>
-        <button id="redo-button" class="control-button">Redo</button>
+      </header>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="scripts/vendor/jquery.js"><\/script>')</script>
+      <script src="scripts/vendor/modernizr.js"></script>
+
+      <div class="container discussion">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'cmxio'; // required: replace example with your forum shortname
+            var disqus_url = "http://cmx.io/";
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </div>
     </div>
-    <div class="error" style="display:none">
+    <div id="comix" style="display:none">
+    </div>
+    <div id="error" style="display:none">
       <h2>Unable to read gist <span id="error-gist-number"></span></h2>
       <pre id="error-response"></pre>
       <p>Please make sure that</p>
@@ -75,15 +101,7 @@
         <li>the gist contains <a id="error-gist-index-link">index.html</a> file with comix source code</li>
         <li>your browser is not over <a href="http://developer.github.com/v3/#rate-limiting">GitHub API limit quota</a></li>
       </ul>
-      <p>Here is an example of a working gist <a href="http://cmx.io/edit/#74e3dc0e166daf1ec668">http://cmx.io/edit/#74e3dc0e166daf1ec668</a> which reads <a href="https://gist.github.com/74e3dc0e166daf1ec668">https://gist.github.com/74e3dc0e166daf1ec668</a>.</p>
-    </div>
-    <div class="unsupported" style="display:none">
-      <h2>Wait! WebKit is required here</h2>
-      <p>The Comix Editor was tested under Chrome. It uses some webkit-specific tricks.</p>
-      <p>It is a prototype. Currently it is broken under Firefox, Opera and IE.</p>
-      <p>Please, run it in the latest <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.apple.com/safari/">Safari</a>.</p>
-      <button id="pass-button">I don't want to switch. I want to see how much broken it is. Please let me in!</button>
-      <p class="note">Interested in porting it to your favorite browser? <a href="https://github.com/darwin/cmx.js">Check out the sources</a>.</p>
+      <p>Here is an example of a working gist <a href="http://cmx.io/#4770953">http://cmx.io/#4770953</a> which reads <a href="https://gist.github.com/4770953">https://gist.github.com/4770953</a>.</p>
     </div>
 
     <script type="text/javascript">
@@ -96,5 +114,63 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
+    <script>
+    $(function() {
+      var fn = function() {
+        $(".bs-docs-social-buttons").css('opacity', 0).css("display", "block").animate({'opacity': 1});
+      };
+      setTimeout(fn, 2000);
+    });
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var hash = window.location.hash.substring(1);
+        if (!hash) {
+          $("#homepage").css("display", "block");
+          return;
+        }
+
+        var src = "https://api.github.com/gists/" + hash;
+
+        $(document).ajaxError(function(event, xhr) {
+          $("#error").css("display", "block");
+          $('#error-response').text(xhr.responseText);
+          $('#error-gist-number').text('#' + hash);
+          $('#error-gist-link').attr('href', src).text(src);
+          $('#error-gist-index-link').attr('href', "https://gist.github.com/" + hash);
+          return console.log("failed to fetch the content");
+        });
+
+        console.log("fetching " + src + "...");
+        return $.get(src, function(content) {
+          var target, _ref, _ref1;
+          console.log("got", content);
+          target = src;
+          if (typeof content === "object") {
+            target = content.html_url;
+            content = (_ref = content.files) != null ? (_ref1 = _ref["index.html"]) != null ? _ref1.content : void 0 : void 0;
+          }
+
+          console.log(content);
+
+          var $stage = $("<iframe/>", {
+            "class": "stage",
+            frameborder: 0,
+            allowTransparency: "true"
+          });
+          $("#comix").append($stage);
+          doc = $stage.contents().get(0);
+          doc.open();
+          doc.write(content);
+          doc.close();
+          $("#comix").css("display", "block");
+        });
+      })();
+    </script>
+
+    <!-- build:js scripts/site.js -->
+    <script src="scripts/boot.js" type="text/javascript" charset="utf-8"></script>
+    <!-- endbuild -->
   </body>
 </html>
