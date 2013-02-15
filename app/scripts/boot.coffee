@@ -1,17 +1,15 @@
-$ ->
+displayHomepage = ->
+  $("#homepage").css "display", "block"
 
-  hash = window.location.hash.substring(1)
-  unless hash
-    $("#homepage").css "display", "block"
-    return
-
-  src = "https://api.github.com/gists/" + hash
+loadAndDisplayGist = (gistId) ->
+  window.gistId = gistId
+  src = "https://api.github.com/gists/" + gistId
   $(document).ajaxError (event, xhr) ->
     $("#error").css "display", "block"
     $("#error-response").text xhr.responseText
-    $("#error-gist-number").text "#" + hash
+    $("#error-gist-number").text "#" + gistId
     $("#error-gist-link").attr("href", src).text src
-    $("#error-gist-index-link").attr "href", "https://gist.github.com/" + hash
+    $("#error-gist-index-link").attr "href", "https://gist.github.com/" + gistId
     console.log "failed to fetch the content"
 
   console.log "fetching #{src}..."
@@ -30,3 +28,17 @@ $ ->
     doc.write content
     doc.close()
     $("#comix").css "display", "block"
+
+
+$ ->
+
+  hash = location.hash.substring(1)
+
+  # disqus uses #comment-12345 style hashes
+  if hash.match /^comment/
+    hash = undefined
+
+  if hash
+    loadAndDisplayGist(hash)
+  else
+    displayHomepage()
