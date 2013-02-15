@@ -105,6 +105,7 @@
     </div>
 
     <!-- build:js scripts/site.js -->
+    <script src="scripts/social-fadein.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/boot.js" type="text/javascript" charset="utf-8"></script>
     <!-- endbuild -->
 
@@ -117,14 +118,6 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-    </script>
-    <script>
-    $(function() {
-      var fn = function() {
-        $(".bs-docs-social-buttons").css('opacity', 0).css("display", "block").animate({'opacity': 1});
-      };
-      setTimeout(fn, 2000);
-    });
     </script>
   </body>
 </html>
