@@ -104,6 +104,10 @@
       <p>Here is an example of a working gist <a href="http://cmx.io/#4770953">http://cmx.io/#4770953</a> which reads <a href="https://gist.github.com/4770953">https://gist.github.com/4770953</a>.</p>
     </div>
 
+    <!-- build:js scripts/site.js -->
+    <script src="scripts/boot.js" type="text/javascript" charset="utf-8"></script>
+    <!-- endbuild -->
+
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-38409764-1']);
@@ -122,55 +126,5 @@
       setTimeout(fn, 2000);
     });
     </script>
-
-    <script type="text/javascript">
-      (function() {
-        var hash = window.location.hash.substring(1);
-        if (!hash) {
-          $("#homepage").css("display", "block");
-          return;
-        }
-
-        var src = "https://api.github.com/gists/" + hash;
-
-        $(document).ajaxError(function(event, xhr) {
-          $("#error").css("display", "block");
-          $('#error-response').text(xhr.responseText);
-          $('#error-gist-number').text('#' + hash);
-          $('#error-gist-link').attr('href', src).text(src);
-          $('#error-gist-index-link').attr('href', "https://gist.github.com/" + hash);
-          return console.log("failed to fetch the content");
-        });
-
-        console.log("fetching " + src + "...");
-        return $.get(src, function(content) {
-          var target, _ref, _ref1;
-          console.log("got", content);
-          target = src;
-          if (typeof content === "object") {
-            target = content.html_url;
-            content = (_ref = content.files) != null ? (_ref1 = _ref["index.html"]) != null ? _ref1.content : void 0 : void 0;
-          }
-
-          console.log(content);
-
-          var $stage = $("<iframe/>", {
-            "class": "stage",
-            frameborder: 0,
-            allowTransparency: "true"
-          });
-          $("#comix").append($stage);
-          doc = $stage.contents().get(0);
-          doc.open();
-          doc.write(content);
-          doc.close();
-          $("#comix").css("display", "block");
-        });
-      })();
-    </script>
-
-    <!-- build:js scripts/site.js -->
-    <script src="scripts/boot.js" type="text/javascript" charset="utf-8"></script>
-    <!-- endbuild -->
   </body>
 </html>
