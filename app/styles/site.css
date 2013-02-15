@@ -9,7 +9,7 @@ body {
   margin-top: 20px;
 }
 
-html {
+.force-vscrollbar {
   height: 101%;
 }
 

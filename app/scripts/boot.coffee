@@ -1,4 +1,5 @@
 displayHomepage = ->
+  $('html').addClass 'force-vscrollbar'
   $("#homepage").css "display", "block"
   _gaq.push ['_trackPageview'] # standard pageview
 
