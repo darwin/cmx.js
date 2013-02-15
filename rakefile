@@ -57,13 +57,6 @@ task :dev do
   sys("yeoman server")
 end
 
-desc "hack for build in progress - I was unable to teach Yeoman new tricks"
-task :buildhack do
-  sys("touch x.txt")
-  sys("cp temp/edit/scripts/* temp/scripts")
-  sys("cp temp/edit/styles/* temp/styles")
-end
-
 desc "build version"
 task :build do
   die("build failed") if not sys("yeoman custom-build -d")
