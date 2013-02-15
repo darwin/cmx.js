@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'xkcd';
+  font-style: normal;
+  font-weight: normal;
+  src: local('xkcd'),url('/fonts/humor-sans.ttf');
+}
+
 body {
   margin-top: 20px;
 }
@@ -19,16 +26,59 @@ section {
 }
 
 #comix {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin: auto;
+  min-width: 600px;
 }
 
-#comix iframe {
-  width: 100%;
-  height: 100%;
+#comix-spinner {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#comix-placeholder {
+  margin: auto;
+  margin-bottom: 100px;
+}
+
+#comix-banner {
+  height: 26px;
+  white-space:nowrap;
+  position: relative;
+  font-family: "xkcd", sans-serif;
+  font-size: 14px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  line-height: 26px;
+}
+
+.comix-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.comix-author {
+  position: absolute;
+  top: -4px;
+  margin-left: 16px;
+  color: #999;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.comix-date {
+  position: absolute;
+  top: 8px;
+  margin-left: 16px;
+  color: #999;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.stage {
+  margin: 0;
+  padding: 0;
+  display: block;
 }
 
 .icon-github {

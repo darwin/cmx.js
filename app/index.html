@@ -75,8 +75,14 @@
         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </div>
     </div>
+    <div id="comix-spinner" style="display:none">
+    </div>
     <div id="comix" style="display:none">
-      <div id="comix-placeholder"></div>
+      <div id="comix-placeholder">
+        <div id="comix-banner">
+          <span class="comix-title"></span><span class="comix-author"></span><span class="comix-date"></span>
+        </div>
+      </div>
     </div>
     <div id="error" style="display:none">
       <h2>Unable to read gist <span id="error-gist-number"></span></h2>
@@ -95,6 +101,8 @@
 
     <!-- build:js scripts/site.js -->
     <script src="scripts/vendor/modernizr.js"></script>
+    <script src="scripts/vendor/spin.js"></script>
+    <script src="scripts/vendor/date.js"></script>
     <script src="scripts/social-fadein.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/boot.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/disqus.js" type="text/javascript" charset="utf-8"></script>
