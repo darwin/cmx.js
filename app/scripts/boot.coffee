@@ -16,18 +16,21 @@ loadAndDisplayGist = (gistId) ->
 
   console.log "fetching #{src}..."
   $.get src, (content) ->
-    if typeof content == "object"
-      content = content.files?["index.html"]?.content
-    console.log content
+    console.log "received", content
+
+    headerSource = content.files?["header.html"]?.content or ""
+    comixSource = content.files?["index.html"]?.content or ""
+    footerSource = content.files?["footer.html"]?.content or ""
+
     $stage = $("<iframe/>",
       class: "stage"
       frameborder: 0
       allowTransparency: "true"
     )
-    $("#comix").append $stage
+    $("#comix-placeholder").append headerSource, $stage, footerSource
     doc = $stage.contents().get(0)
     doc.open()
-    doc.write content
+    doc.write comixSource
     doc.close()
     $("#comix").css "display", "block"
     _gaq.push ['_trackPageview', '/gist/'+gistId] # virtual gist pageview

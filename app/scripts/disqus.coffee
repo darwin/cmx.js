@@ -1,6 +1,6 @@
 $ ->
   window.disqus_url = "http://cmx.io/"
-  window.disqus_url += "##{window.gistId}" if window.gistId
+  window.disqus_url += "gist/#{window.gistId}" if window.gistId
 
   wrapper = $("<div/>").attr('id', "disqus_thread")
   if window.gistId
