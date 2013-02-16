@@ -113,8 +113,8 @@ section {
 .source-link {
   position: absolute;
   bottom: -6px;
-  left: 18px;
-  font-size: 14px;
+  left: 14px;
+  font-size: 10px;
   color: #aaa;
   text-align: left;
 }
