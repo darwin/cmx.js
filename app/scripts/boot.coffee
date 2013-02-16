@@ -57,7 +57,7 @@ loadAndDisplayGist = (gistId) ->
     $("#error-gist-link").attr("href", src).text src
     $("#error-gist-index-link").attr "href", "https://gist.github.com/" + gistId
     _gaq.push ['_trackPageview', '/error/'+gistId] # virtual error pageview
-    console.log "failed to fetch the content"
+    console.log "failed to fetch the gist content"
 
   $(document).ajaxError fail
 
@@ -178,3 +178,5 @@ $ ->
   else
     displayHomepage()
 
+$(window).hashchange ->
+  location.reload()
