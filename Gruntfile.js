@@ -20,7 +20,7 @@ module.exports = function( grunt ) {
       compile: {
         files: {
           'temp/scripts/*.js': 'app/scripts/**/*.coffee',
-          'temp/lib/*.js': 'app/lib/**/*.coffee',
+          'temp/app/lib/*.js': 'app/lib/**/*.coffee',
           'temp/edit/scripts/*.js': 'app/edit/scripts/**/*.coffee'
         },
         options: {
