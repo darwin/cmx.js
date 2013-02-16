@@ -49,15 +49,17 @@ loadAndDisplayGist = (gistId) ->
   src = "https://api.github.com/gists/" + gistId
   src = "gist-test.html" if gistId is "test"
 
-  $(document).ajaxError (event, xhr) ->
+  fail = (event, xhr) ->
     spinner.stop()
     $("#error").css "display", "block"
-    $("#error-response").text xhr.responseText
+    $("#error-response").text xhr?.responseText
     $("#error-gist-number").text "#" + gistId
     $("#error-gist-link").attr("href", src).text src
     $("#error-gist-index-link").attr "href", "https://gist.github.com/" + gistId
     _gaq.push ['_trackPageview', '/error/'+gistId] # virtual error pageview
     console.log "failed to fetch the content"
+
+  $(document).ajaxError fail
 
   console.log "fetching #{src}..."
   $.get src, (content) ->
@@ -73,8 +75,18 @@ loadAndDisplayGist = (gistId) ->
       authorUrl = "https://gist.github.com/4770953"
       date = "Jan 16, 2013"
     else
+      # puzzled! sometimes Firefox16-18/Mac returns plaintext response
+      # Firefox Nightly 21.0a1 works as expected
+      # I guess, this has something to do with caching or invalid MIME types
+      if typeof content == "string"
+        try
+          content = JSON.parse(content)
+        catch e
+          return fail()
+
       header = content.files?["header.html"]?.content
       comix = content.files?["index.html"]?.content
+      fail() unless comix
       footer = content.files?["footer.html"]?.content
       description = content.description if content.description
       author = content.user?.login or "anonymous"
