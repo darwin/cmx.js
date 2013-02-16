@@ -112,12 +112,11 @@ section {
 
 .source-link {
   position: absolute;
-  bottom: -12px;
+  bottom: -6px;
   left: 18px;
-  font-size: 11px;
+  font-size: 14px;
   color: #aaa;
   text-align: left;
-  font-weight: bold;
 }
 
 .social-buttons-placeholder {
@@ -140,4 +139,69 @@ section {
 
 .discussion {
   margin-top: 100px;
+}
+
+.author-message {
+  float: left;
+  margin-top: 50px;
+  text-align: left;
+  font-size: 14px;
+  line-height: 18px;
+  width: 600px;
+}
+
+.author-message .avatar {
+  padding-right: 6px;
+  padding-bottom: 10px;
+  width: 20px;
+}
+
+.author-message ul li {
+  line-height: 16px;
+}
+
+.author-bio {
+  float: left;
+  margin-top: 90px;
+  text-align: left;
+  font-size: 10px;
+  padding-left: 10px;
+  line-height: 14px;
+  width: 190px;
+}
+
+.author-bio .avatar {
+  float: left;
+  width: 34px;
+  padding-right: 10px;
+}
+
+.side-products {
+  margin-top: 20px;
+  clear: both;
+}
+
+.side-product {
+  margin-top: 16px;
+  clear: both;
+  display: block;
+}
+
+.side-product img {
+  float: left;
+  width: 36px;
+  padding-right: 8px;
+}
+
+.side-product .title {
+  padding-top: 4px;
+  font-size: 14px;
+  text-decoration: none !important;
+}
+
+.author-note {
+  color: #aaa;
+  border-bottom: 1px solid #eee;
+  font-size: 10px;
+  margin-bottom: 20px;
 }
