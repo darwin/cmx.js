@@ -42,6 +42,7 @@ section {
 }
 
 #comix-banner {
+  font-weight: normal;
   height: 26px;
   white-space:nowrap;
   position: relative;
@@ -54,7 +55,6 @@ section {
 
 .comix-title {
   font-size: 24px;
-  font-weight: bold;
 }
 
 .comix-author {
@@ -62,7 +62,6 @@ section {
   top: -4px;
   margin-left: 16px;
   color: #999;
-  font-weight: bold;
   font-size: 10px;
 }
 
@@ -71,7 +70,6 @@ section {
   top: 8px;
   margin-left: 16px;
   color: #999;
-  font-weight: bold;
   font-size: 10px;
 }
 

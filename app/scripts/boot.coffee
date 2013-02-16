@@ -87,10 +87,6 @@ loadAndDisplayGist = (gistId) ->
         when 'cmx:ready'
           window.cmxref = cmx
 
-          $comix.css
-            opacity: 0
-            display: "block"
-
           $comix.animate
             opacity: 1
 
@@ -119,6 +115,13 @@ loadAndDisplayGist = (gistId) ->
           $stage.css height:"#{rH}px", width:"#{rW}px"
           $comix.css width:"#{rW}px"
           $placeholder.css width:"#{rW}px"
+
+    # we need to show comix div with SVG elements,
+    # getBBox calls on display:none elements throws on Firefox
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=612118
+    $comix.css
+      opacity: 0
+      display: "block"
 
     doc = $stage.contents().get(0)
     doc.open()

@@ -24,18 +24,27 @@ require [
     parent?.messageFromCMX?(name, cmx)
 
   loadWebFonts = (continuation) ->
+    alreadyCalled = no
+
     window.WebFontConfig =
       custom:
         families: ["xkcd"]
       active: ->
+        alreadyCalled = yes
         continuation?()
 
     wf = document.createElement("script")
-    wf.src = "//ajax.googleapis.com/ajax/libs/webfont/1.1.2/webfont.js"
+    wf.src = "//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"
     wf.type = "text/javascript"
     wf.async = "true"
     s = document.getElementsByTagName("script")[0]
     s.parentNode.insertBefore wf, s
+
+    # for some reason webfont loader does not work on Firefox/Mac when called from IFRAME
+    checkIfLoaderIsBroken = ->
+      continuation?() unless alreadyCalled
+
+    setTimeout checkIfLoaderIsBroken, 2000
 
   launch = ->
     cmx.previousCmx = window.cmx
