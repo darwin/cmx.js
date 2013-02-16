@@ -4,24 +4,34 @@ scene {
 
 @font-face {
   font-family: 'xkcd';
-  font-style: normal;
+  src: url('/fonts/xkcd.eot');
+  src: url('/fonts/xkcd.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/xkcd.woff') format('woff'),
+       url('/fonts/xkcd.ttf') format('tff');
   font-weight: normal;
-  src: local('xkcd'),url('/fonts/humor-sans.ttf');
+  font-style: normal;
 }
 
 .cmx-scene {
   float: left;
+
   font-family: "xkcd", sans-serif;
   font-size: 14px;
   background-color: white;
   margin: 0px;
   position: relative;
 
+  text-rendering: optimizeSpeed;
+
   -moz-transition: all 0.6s ease-out;
   -o-transition: all 0.6s ease-out;
   -webkit-transition: all 0.6s ease-out;
   -ms-transition: all 0.6s ease-out;
   transition: all 0.6s ease-out;
+}
+
+.cmx-text {
+  shape-rendering: optimizeSpeed;
 }
 
 .cmx-scene svg {
@@ -39,9 +49,12 @@ scene {
   stroke: white;
 }
 
-.cmx-back .cmx-text * {
-  stroke-width: 10px;
-  stroke: white !important;
+.cmx-back .cmx-text {
+  fill: none;
+  stroke-opacity: 1;
+  stroke-width: 8px;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
 }
 
 .cmx-back .cmx-path {
