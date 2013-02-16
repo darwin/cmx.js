@@ -6,6 +6,8 @@ displayHomepage = ->
 loadAndDisplayGist = (gistId) ->
   $("#comix-spinner").show()
 
+  document.title = "Comix ##{gistId}"
+
   spinnerOpts =
     lines: 10, # The number of lines to draw
     length: 5, # The length of each line

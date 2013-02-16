@@ -5,6 +5,7 @@ $ ->
   wrapper = $("<div/>").attr('id', "disqus_thread")
   if window.gistId
     $('#comix').append(wrapper)
+    window.disqus_title = "Comix ##{window.gistId}"
   else
     $('.discussion').prepend(wrapper)
 
