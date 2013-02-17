@@ -51,6 +51,7 @@ loadAndDisplayGist = (gistId) ->
 
   fail = (event, xhr) ->
     spinner.stop()
+    $("#comix").css "display", "none"
     $("#error").css "display", "block"
     $("#error-response").text xhr?.responseText
     $("#error-gist-number").text "#" + gistId
