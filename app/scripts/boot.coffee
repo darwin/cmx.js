@@ -87,7 +87,9 @@ loadAndDisplayGist = (gistId) ->
 
       header = content.files?["header.html"]?.content
       comix = content.files?["index.html"]?.content
-      fail() unless comix
+      unless comix
+        fail(null, responseText:"index.html file not found")
+        return
       footer = content.files?["footer.html"]?.content
       description = content.description if content.description
       author = content.user?.login or "anonymous"
