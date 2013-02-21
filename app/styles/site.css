@@ -193,6 +193,10 @@ section {
   padding-right: 8px;
 }
 
+.side-product span {
+  display: block;
+}
+
 .side-product .title {
   padding-top: 4px;
   font-size: 14px;
