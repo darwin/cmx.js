@@ -97,7 +97,7 @@ task :build do
     sys("cp edit/sample.html \"#{CMXIO_EDIT_DIR}\"")
 
     patch(File.join(CMXIO_EDIT_DIR, "sample.html"), [
-      ["<script data-main=\"v/cmx\" src=\"scripts/vendor/require.js\"></script>", "<script src=\"http://cmx.io/v/#{STABLE_VERSION}/cmx.js\"></script>"],
+      ["<script data-main=\"v/cmx\" src=\"scripts/vendor/require.js\"></script>", "<script src=\"http://cmx.io/v/#{STABLE_VERSION}/cmx.js\" charset=\"utf-8\"></script>"],
       ["v/cmx", "http://cmx.io/v/#{STABLE_VERSION}/cmx"]
     ])
 
