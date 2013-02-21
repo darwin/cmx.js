@@ -59,7 +59,7 @@ end
 
 desc "build version"
 task :build do
-  die("build failed") if not sys("yeoman custom-build -d")
+  die("build failed") if not sys("grunt build -d")
 
   version = ENV["v"] || NEXT_VERSION
 
@@ -96,7 +96,10 @@ task :build do
     sys("cp edit/index.html \"#{CMXIO_EDIT_DIR}\"")
     sys("cp edit/sample.html \"#{CMXIO_EDIT_DIR}\"")
 
-    patch(File.join(CMXIO_EDIT_DIR, "sample.html"), [["v/cmx", "http://cmx.io/v/#{STABLE_VERSION}/cmx"]])
+    patch(File.join(CMXIO_EDIT_DIR, "sample.html"), [
+      ["<script data-main=\"v/cmx\" src=\"scripts/vendor/require.js\"></script>", "<script src=\"http://cmx.io/v/#{STABLE_VERSION}/cmx.js\"></script>"],
+      ["v/cmx", "http://cmx.io/v/#{STABLE_VERSION}/cmx"]
+    ])
 
     sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts\"")
     sys("mkdir -p \"#{CMXIO_EDIT_DIR}/styles\"")
