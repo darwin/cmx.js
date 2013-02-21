@@ -65,12 +65,6 @@ task :build do
 
   VERSION_DIR = File.join(CMXIO_V_DIR, version)
 
-  sys("rm -rf \"#{VERSION_DIR}\"/*")
-  sys("mkdir -p \"#{VERSION_DIR}\"")
-  Dir.chdir "dist" do
-    sys("cp -r v/* \"#{VERSION_DIR}\"")
-  end
-
   sys("rm -rf \"#{CMXIO_EDIT_DIR}\"/*")
   sys("mkdir -p \"#{CMXIO_EDIT_DIR}\"")
   Dir.chdir "dist" do
@@ -101,6 +95,10 @@ task :build do
       ["v/cmx", "http://cmx.io/v/#{STABLE_VERSION}/cmx"]
     ])
 
+    # concat require.js and cmx.js, this work should be done by usemin, but I was unable to debug it
+    # see https://github.com/yeoman/grunt-usemin/issues/67
+    sys("mv v/cmx.js v/cmx2.js && cat ../app/edit/scripts/vendor/require.js v/cmx2.js > v/cmx.js && rm v/cmx2.js")
+
     sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts\"")
     sys("mkdir -p \"#{CMXIO_EDIT_DIR}/styles\"")
     sys("mkdir -p \"#{CMXIO_EDIT_DIR}/scripts/ace\"")
@@ -111,6 +109,11 @@ task :build do
     sys("cp edit/editor.ico \"#{CMXIO_EDIT_DIR}\"")
   end
 
+  sys("rm -rf \"#{VERSION_DIR}\"/*")
+  sys("mkdir -p \"#{VERSION_DIR}\"")
+  Dir.chdir "dist" do
+    sys("cp -r v/* \"#{VERSION_DIR}\"")
+  end
 end
 
 task :default => :dev

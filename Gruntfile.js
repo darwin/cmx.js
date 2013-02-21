@@ -150,7 +150,6 @@ module.exports = function(grunt) {
           name: 'main',
           //uglify2: {} // https://github.com/mishoo/UglifyJS2
           mainFile: '.tmp/edit/sample.html'
-          // out: '.tmp/edit/scripts/main.js'
         }
       }
     },
@@ -203,7 +202,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['404.html', 'index.html'],
+          src: ['*.html'],
           dest: '<%= yeoman.dist %>'
         }, {
           expand: true,
@@ -264,7 +263,7 @@ module.exports = function(grunt) {
       }
     },
     bower: {
-      rjsConfig: 'app/scripts/main.js',
+      rjsConfig: '.tmp/scripts/main.js',
       indent: '    '
     }
   });
