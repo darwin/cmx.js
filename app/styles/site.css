@@ -19,6 +19,14 @@ section {
 
 .container {
   width: 800px;
+  position: relative;
+}
+
+.chrome-experiment-badge {
+  zoom: 70%;
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 #error {
