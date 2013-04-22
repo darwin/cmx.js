@@ -4,9 +4,7 @@
 
 <a href="http://cmx.io"><img src="http://cmx.io/img/cmx-preview.png" width="800px"/></a>
 
-Note: Source for this comix strip is in [app/sample.html](app/sample.html).
-
-### Read more about the markup [on the wiki](https://github.com/darwin/cmx.js/wiki)
+Note: Source for this comix strip is in [app/edit/sample.html](app/edit/sample.html).
 
 ## Development
 
